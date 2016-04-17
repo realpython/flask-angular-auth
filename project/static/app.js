@@ -36,11 +36,12 @@ myApp.config(function ($routeProvider) {
 myApp.run(function ($rootScope, $location, $route, AuthService) {
   $rootScope.$on('$routeChangeStart',
     function (event, next, current) {
-      AuthService.getUserStatus();
-      if (next.access.restricted &&
-          !AuthService.isLoggedIn()) {
-        $location.path('/login');
-        $route.reload();
-      }
+      AuthService.getUserStatus()
+      .then(function(){
+        if (next.access.restricted && !AuthService.isLoggedIn()){
+          $location.path('/login');
+          $route.reload();
+        }
+      });
   });
 });

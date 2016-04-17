@@ -99,7 +99,7 @@ angular.module('myApp').factory('AuthService',
     }
 
     function getUserStatus() {
-      $http.get('/api/status')
+      return $http.get('/api/status')
       // handle success
       .success(function (data) {
         if(data.status){
